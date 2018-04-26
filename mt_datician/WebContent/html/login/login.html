@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../../lib/angular-1.5.1/angular.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<a>##Welcome to mt_datician##</a><br />
+<div ng-app="myApp" id="loginFrom" ng-controller="LoginForm">
+	Username:<br>
+	<input type="text" name="username" ng-model="uname" placeholder="请输入用户名"/>
+	<br>
+	Password:<br>
+	<input type="text" name="password" ng-model="pword" placeholder="请输入密码"/>
+	<br><br>
+	<input type="button" value="Submit" ng-click="submit()"/>
+</div> 
+
+
+<script>
+angular.module("myApp", [])
+    .controller("LoginForm", function($scope,$http) {
+
+    $scope.resetInfo=function()
+    {
+        $scope.uname="";
+        $scope.pword="";
+    }
+
+    $scope.submit=function()
+    {
+        var postData = "?uname="+$scope.uname+"&"+"pword="+$scope.pword;
+        //url如何优化能避免有 http://localhost:8080/mt_datician/ ?
+        var url = "http://localhost:8080/mt_datician/loginResult" + postData;
+        $http.post(url).success(function(data)
+        {
+            alert(data);
+        });
+
+    }
+
+});
+</script>
+
+</body>
+</html>
